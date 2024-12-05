@@ -3,8 +3,33 @@
 @tailwind utilities;
 
 
+
+@font-face {  
+  font-family: 'SF Pro Rounded';  
+  src: url('fonts/SF-Pro-Rounded-Regular.woff2') format('woff2'),  
+       url('fonts/SF-Pro-Rounded-Regular.woff') format('woff'),  
+       url('fonts/SF-Pro-Rounded-Regular.ttf') format('truetype');  
+  font-weight: normal;  
+  font-style: normal;  
+}  
+
+@font-face {  
+  font-family: 'SF Pro Rounded';  
+  src: url('fonts/SF-Pro-Rounded-Bold.woff2') format('woff2'),  
+       url('fonts/SF-Pro-Rounded-Bold.woff') format('woff'),  
+       url('fonts/SF-Pro-Rounded-Bold.ttf') format('truetype');  
+  font-weight: bold;  
+  font-style: normal;  
+}
+
+
+
+
 body{
   background-color: #242424;
   padding-left: 32px;
   padding-right: 32px;
+  font-family: 'SF Pro Rounded';
+  
 }
+
