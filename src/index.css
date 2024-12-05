@@ -1,34 +1,18 @@
+
+
+/* Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-
-@font-face {  
-  font-family: 'SF Pro Rounded';  
-  src: url('fonts/SF-Pro-Rounded-Regular.woff2') format('woff2'),  
-       url('fonts/SF-Pro-Rounded-Regular.woff') format('woff'),  
-       url('fonts/SF-Pro-Rounded-Regular.ttf') format('truetype');  
-  font-weight: normal;  
-  font-style: normal;  
-}  
-
-@font-face {  
-  font-family: 'SF Pro Rounded';  
-  src: url('fonts/SF-Pro-Rounded-Bold.woff2') format('woff2'),  
-       url('fonts/SF-Pro-Rounded-Bold.woff') format('woff'),  
-       url('fonts/SF-Pro-Rounded-Bold.ttf') format('truetype');  
-  font-weight: bold;  
-  font-style: normal;  
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
-
-
-
-body{
+body {
   background-color: #242424;
-
-  font-family: 'SF Pro Rounded';
-  
+  font-family:"San Francisco" ;
 }
-

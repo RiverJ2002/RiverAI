@@ -37,21 +37,20 @@ export default function NormalLogin(){
         border-solid h-[56px] items-center ">
 
           <img src={email_icon} alt="icon not found" className="w-[28px] h-[28px] ml-[16px]" />
-          <input type="text" placeholder="Email" className="ml-[12px] outline-none w-[100%] h-[100%] text-[1.4rem]"/>
+          <input type="text" placeholder="Email" className=" bg-transparent ml-[12px] outline-none w-[100%] h-[100%] text-[1.4rem]"/>
 
         </section>
 
         {/* The passsword input section */}
-        <section className="flex bg-white rounded-[16px] border-[#dbdcdc] border 
-        border-solid h-[56px] items-center box-border px-[16px] ">
+        <section className="flex bg-white rounded-[16px] border-[#dbdcdc] border
+        border-solid h-[56px] items-center box-border px-[16px] mt-[24px]">
 
           <img src={key_icon} alt="icon not found" className="w-[28px] h-[28px]" />
-          <input type={PasswordState} placeholder="password" className="ml-[12px] outline-none	w-[100%] h-[100%] text-[1.4rem]"/>
+          <input type={PasswordState} placeholder="password" className="border-none bg-transparent ml-[12px] outline-none	w-[100%] h-[100%] text-[1.4rem]"/>
           <img src={eye_icon} alt="icon not found" className="w-[28px] h-[28px] ml-auto"
            onClick={ManagePasswordState}/>
-          
-
         </section>
+        
         <section className="flex justify-between items-center  mt-[32px]">  
             <div></div> {/* Just a placeholder to push the link to the far right */}  
             <a href="" className="pr-[32px] text-[#01CD98] text-[1.4rem]">Forgot Password?</a>  
@@ -79,14 +78,14 @@ export default function NormalLogin(){
         <button className="flex items-center justify-center
          bg-amber-200 rounded-[36px] w-[178px]">
           <img src={google_icon} alt="icon not found" className="w-[28px] h-[28px]"/>
-          <p className="ml-[8px] text-[#051320] text-[1.6rem]"><b>Google</b></p>
+          <p className="ml-[8px] text-[#051320] text-[16px]"><b>Google</b></p>
         </button>
 
         {/* Login with facebook button */}
         <button className="flex items-center justify-center
          bg-amber-200 rounded-[36px] w-[178px]">
           <img src={facebook_icon} alt="icon not found" className="w-[28px] h-[28px] "/>
-          <p className="ml-[8px] text-[#051320] text-[1.6rem]"><b>Facebook</b></p>
+          <p className="ml-[8px] text-[#051320] text-[16px]"><b>Facebook</b></p>
         </button>
 
       </section>
