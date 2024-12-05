@@ -4,20 +4,30 @@ import upload_icon from './images/upload_icon.png'
 import send_icon from './images/send_icon.png'
 import { useState } from "react";
 
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function ChatPage(){
     var [textValue, setTextValue] = useState('');
+    var navigate = useNavigate();
+
 
     var PromptInputChange = (event) =>{
         setTextValue(event.target.value);
+        
     }
 
-    var SendPrompt = ()=>{
+    const SendPrompt = () => {
         console.log(textValue);
-    }
-    
+        navigate('./AnswerPage', { state: { prompt: textValue } }); // Pass data using state
+    };
+
+
     return <section>
+
+                {/* the nav part for the chat page was made to give the user other options
+                to use the LLM */}
                 <nav className=" flex items-center bg-fuchsia-400 mb-[24px]">
                     <img src={h_munu_icon} alt="icon not found" className="w-[40px] h-[40px]" />
                     <img src={openai_icon} alt="icon not found" className="w-[40px] h-[40px] ml-[12px]" />
@@ -44,6 +54,7 @@ export default function ChatPage(){
                     ></textarea>
 
                     <img src={send_icon} onClick={SendPrompt} alt="icon not found" className="w-[56px] h-[56px] ml-[auto] mr-[24px]" />
+                   
                 </section>
 
 
