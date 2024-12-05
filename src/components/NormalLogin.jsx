@@ -61,7 +61,7 @@ export default function NormalLogin(){
 
       
       <Link className="bg-[#01CD98] rounded-[36px] w-[100%] h-[56px] flex items-center
-       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF]" to={"HomePage"}>Login</Link>
+       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF]" to={"HistoryPage"}>Login</Link>
 
 
 

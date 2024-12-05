@@ -1,6 +1,6 @@
 
 import './App.css'
-import HomePage from './components/HomePage';
+import HistoryPage from './components/HistoryPage';
 import NormalLogin from './components/NormalLogin'
 
 import { createBrowserRouter , RouterProvider} from 'react-router-dom'
@@ -10,8 +10,8 @@ var router = createBrowserRouter([{
   element: <NormalLogin/>
 },
 {
-  path: '/HomePage',
-  element: <HomePage/>,
+  path: '/HistoryPage',
+  element: <HistoryPage/>,
   errorElement: <div>404 not found</div>
 }
 ]);
