@@ -19,7 +19,7 @@ export default function NormalLogin(){
     }
     
     
-    return <form className="flex-col bg-fuchsia-400 flex justify-center mt-[40px]">
+    return <form className="flex-col bg-fuchsia-400 flex justify-center mt-[40px]  px-[32px] box-border">
 
       {/* The login page header section */}
       <section className="bg-lime-200 mb-[40px]">
