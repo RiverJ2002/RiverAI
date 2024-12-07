@@ -1,37 +1,26 @@
 import send_icon from './images/send_icon.png';  
-import { Link, useNavigate, useLocation } from "react-router-dom";  
+ 
 import { useState } from "react";
 
 
 
 
 export default function ConversationCardMaker({ onSendPrompt }) {
-    const [userPrompt, setUserPrompt] = useState('');
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const PromptInputChange = (event) => {
+    var [userPrompt, setUserPrompt] = useState('');
+    var PromptInputChange = (event) => {
         setUserPrompt(event.target.value);
     };
 
 
-    const SendPrompt = () => {
+    var SendPrompt = () => {
         if (userPrompt.trim() === "") return;
-    
-        console.log("Current Path:", location.pathname);
-        console.log("User Prompt:", userPrompt);
     
         // Notify parent to add the new section
         if (onSendPrompt) {
             onSendPrompt(userPrompt);
         }
-    
-
-    
         setUserPrompt(''); 
     };
-    
-
 
     return (
         <section className="w-[100%] bg-orange-300 flex items-center">

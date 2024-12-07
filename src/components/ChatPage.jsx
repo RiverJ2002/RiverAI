@@ -1,29 +1,31 @@
-import { useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
+import ConversationNav from './ConversationNav.jsx';
+import ConversationCardMaker from './ConversationCardMaker.jsx';
 import avatar_icon from './images/avatar_icon.png';
 import edit_icon from './images/edit_icon.png';
 import copy_icon from './images/copy_icon.png';
+import { useLocation } from 'react-router-dom';
 import CheriCheriLady from './images/CheriCheriLady.png';
-import ConversationCardMaker from './ConversationCardMaker';
-import ConversationNav from './ConversationNav';
+import extra from './images/extra.png';
 
-export default function ConversationPage() {
+
+export default function ChatPage() {
     var location = useLocation();
     var [prompts, setPrompts] = useState([]);
-
-    // Check for the firstPrompt passed via state
-    useEffect(() => {
-        if (location.state?.firstPrompt) {
-            setPrompts([location.state.firstPrompt]); 
-        }
-    }, [location.state]);
-
+    //This state is for controlling suggested chats and the conversations. It simply hides elements on command.
+    var [show, setShow] = useState(true);
+    
+    
     var addPromptSection = (prompt) => {
         setPrompts([...prompts, prompt]);
+        setShow(false)
     };
-    
 
-    const cards = prompts.map((prompt, index) => (
+
+
+
+    // The cards are made in this variable , the prompts are extracted using the ConversationCardMaker component. 
+    var cards = prompts.map((prompt, index) => (
         <section key={index} className="bg-amber-300 px-[24px] box-border">
             <div className="flex items-center">
                 <img src={avatar_icon} alt="icon not found" className="mr-[12px] w-[24px] h-[24px]" />
@@ -44,12 +46,22 @@ export default function ConversationPage() {
         </section>
     ));
 
+
+    
     return (
-        <section>
+        <section className="box-border	px-[16px]">
             <ConversationNav />
 
-            <img src="./images/extra.png" alt="icon not found" className=" mb-[24px]" />
-            <p className=' mb-[50px]'>The Entered Text comes first:</p>
+            
+            {   show && <section className="bg-zinc-200">
+                    <p className="text-[#051320] mb-[32px] text-[16px] leading-[20px] font-semibold">
+                        How can I help you, my friend? 😊️</p>
+                    
+                    <img src={extra} alt="icon not found" className=" mb-[24px]" />
+                </section>
+            }
+
+
 
             {cards}
 
