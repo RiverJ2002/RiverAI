@@ -34,7 +34,7 @@ export default function HistoryPage(){
                     {/* The new topic maker section */}
                     <div className="flex justify-between items-center bg-zinc-50">
                         <h1 className="text-[40px] bg-gradient-to-r from-[#051320] via-[#00F5B5] to-[#ADE2FF] inline-block text-transparent bg-clip-text">Chat bot AI</h1>
-                        <Link to={"/HistoryPage/ChatPage"} className=" bg-[#01CD98] w-[156px] h-[56px] flex items-center rounded-[36px] hover:bg-blue-600 justify-center">
+                        <Link to={"/HistoryPage/FirstChatPage"} className=" bg-[#01CD98] w-[156px] h-[56px] flex items-center rounded-[36px] hover:bg-blue-600 justify-center">
                             <img src={plus_icon} alt="icon not found" className="w-[24px] h-[24px] mr-[8px] " />
                             <p className="text-[#FFFFFF] text-[16px]">New Topic</p>
                         </Link>

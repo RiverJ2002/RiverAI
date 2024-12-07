@@ -2,8 +2,8 @@
 import './App.css'
 import HistoryPage from './components/HistoryPage';
 import NormalLogin from './components/NormalLogin'
-import ChatPage from './components/ChatPage'
-import AnswerPage from './components/AnswerPage'
+import FirstChatPage from './components/FirstChatPage'
+import ConversationPage from './components/ConversationPage'
 import { createBrowserRouter , RouterProvider} from 'react-router-dom'
 
 
@@ -18,13 +18,13 @@ var router = createBrowserRouter([{
   errorElement: <div>404 not found</div>
 },
 {
-  path: '/HistoryPage/ChatPage',
-  element: <ChatPage/>,
+  path: '/HistoryPage/FirstChatPage',
+  element: <FirstChatPage/>,
   errorElement: <div>404 not found</div>
 },
 {
-  path: '/HistoryPage/ChatPage/AnswerPage',
-  element: <AnswerPage/>,
+  path: '/HistoryPage/FirstChatPage/ConversationPage',
+  element: <ConversationPage/>,
   errorElement: <div>404 not found</div>
 }
 ]);
