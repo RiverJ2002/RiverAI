@@ -25,21 +25,40 @@ export default function ConversationNav(){
 
               
 
-            <Popup trigger={UploadButton} modal>
-                <section className='flex items-center'>
-                    <img src={x_icon} alt="icon not found" className="w-[40px] h-[40px]" />
+            <Popup trigger={UploadButton} modal contentStyle={{ width: '90%',
+                 display:'flex', justifyContent: 'center', padding:0}}>
+            {close => (
 
-                    <img src={pdf_icon} alt="icon not found" className="w-[40px] h-[40px]" />
+                <section>
 
-                    <p>Export as PDF</p>
+            <section className='bg-emerald-300 flex justify-between items-center px-[20px]'>  
+            <img src={x_icon} onClick={close} alt="icon not found" className="w-[40px] h-[40px] cursor-pointer" />  
+
+                <div className='flex items-center justify-center flex-grow bg-orange-500'>  
+                    <img src={pdf_icon} alt="icon not found" className="w-[40px] h-[40px]" />  
+                    <p className="ml-2">Export as PDF</p>  
+                </div>  
+
+            </section>
+
+
+
+                    <section className='flex flex-col bg-amber-200 p-[32px]'>
+                        <p className='font-normal text-[16px]'>All your conversations with
+                            Chat Bot AI will be <br /> exported as PDF. Please choose a title for this file</p>
+                    
+                        <input type="text" placeholder='Title' className='border rounded-[16px]
+                        border-[#EBEDEC] box-border px-[24px] h-[56px]'/>
+
+
+                        <button className='rounded-[36px] h-[56px] w-[100%] bg-[#051320] text-[white]'>Export</button>
+
+                    </section>
+
                 </section>
-
-                <p>All your conversations with
-                     Chat Bot AI will be exported as PDF. Please choose a title for this file</p>
-            
-                <input type="text" placeholder='Title' className='border rounded-[16px]
-                 border-[#EBEDEC] box-border '/>
+            )}
             </Popup>
+            
 
            </nav>
 
