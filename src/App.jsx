@@ -5,6 +5,7 @@ import NormalLogin from './components/NormalLogin'
 import ChatPage from './components/ChatPage'
 
 import { createBrowserRouter , RouterProvider} from 'react-router-dom'
+import ProfilePage from './components/ProfilePage';
 
 
 
@@ -21,7 +22,14 @@ var router = createBrowserRouter([{
   path: '/HistoryPage/ChatPage',
   element: <ChatPage/>,
   errorElement: <div>404 not found</div>
+},
+
+{
+  path: '/HistoryPage/ProfilePage',
+  element: <ProfilePage/>,
+  errorElement: <div>404 not found</div>
 }
+
 ]);
 
 

@@ -17,7 +17,11 @@ export default function HistoryPage(){
                         <p className="text-[20px] ml-[12px]">Back</p>
                     </Link>
 
-                    <img src={avatar_icon} alt="icon not found" className="w-[40px] h-[40px] mr-[16px]" />
+
+                    <Link to={"ProfilePage"}>
+                        <img src={avatar_icon} alt="icon not found" className="w-[40px] h-[40px] mr-[16px]" />
+                    </Link>
+
                 </section>
 
                 
@@ -50,6 +54,12 @@ export default function HistoryPage(){
                         <input type="search" placeholder="Search ..." className="ml-[12px] outline-none w-[100%] h-[100%] text-[1.4rem]"/>
                         <img src={search_icon} alt="icon not found" className="w-[24px] h-[24px] mr-[8px] " />
                     </div>
+                </section>
+
+
+                {/* showing previous chats here */}
+                <section>
+
                 </section>
 
             </section>
