@@ -7,9 +7,11 @@ import { useState } from "react";
 
 export default function ConversationCardMaker({ onSendPrompt }) {
     var [userPrompt, setUserPrompt] = useState('');
+
     var PromptInputChange = (event) => {
         setUserPrompt(event.target.value);
     };
+      
 
 
     var SendPrompt = () => {
@@ -19,8 +21,12 @@ export default function ConversationCardMaker({ onSendPrompt }) {
         if (onSendPrompt) {
             onSendPrompt(userPrompt);
         }
+
+
         setUserPrompt(''); 
     };
+
+    
 
     return (
         <section className="w-[100%] bg-orange-300 flex items-center">

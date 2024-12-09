@@ -8,6 +8,33 @@ import search_icon from './images/search_icon.png'
 
 export default function HistoryPage(){
     
+    
+
+    var StartNewConversation = async ()=>{
+        
+        // The data that will be send to MockApi is originated here. along with the user prompt. 
+        var NowTime =  new Date().toLocaleString();
+
+        var NewConversation = {
+            prompts: {},
+            time: NowTime
+        }
+
+        // the exact time that this component is called is when the user attempts to send a message.
+        //meaning that I'll have the time in which each prompt is entered. 
+        await fetch('https://6756066c11ce847c992bcae8.mockapi.io/Conversations', {
+            method: 'POST',
+            headers: {'content-type':'application/json'},
+            // Send your data in the request body as JSON
+            body: JSON.stringify(NewConversation)
+        }).then((res) => res.json)
+
+
+        
+            
+    }
+
+    
     return  <section className="flex-col bg-neutral-200">
 
                 {/* the nav section of the history page */}
@@ -38,10 +65,12 @@ export default function HistoryPage(){
                     {/* The new topic maker section */}
                     <div className="flex justify-between items-center bg-zinc-50">
                         <h1 className="text-[40px] bg-gradient-to-r from-[#051320] via-[#00F5B5] to-[#ADE2FF] inline-block text-transparent bg-clip-text">Chat bot AI</h1>
-                        <Link to={"/HistoryPage/ChatPage"} className=" bg-[#01CD98] w-[156px] h-[56px] flex items-center rounded-[36px] hover:bg-blue-600 justify-center">
+                        
+                        <Link onClick={StartNewConversation} to={"/HistoryPage/ChatPage"} className=" bg-[#01CD98] w-[156px] h-[56px] flex items-center rounded-[36px] hover:bg-blue-600 justify-center">
                             <img src={plus_icon} alt="icon not found" className="w-[24px] h-[24px] mr-[8px] " />
                             <p className="text-[#FFFFFF] text-[16px]">New Topic</p>
                         </Link>
+
                     </div>
                 </section>
 
@@ -59,7 +88,7 @@ export default function HistoryPage(){
 
                 {/* showing previous chats here */}
                 <section>
-
+                    
                 </section>
 
             </section>

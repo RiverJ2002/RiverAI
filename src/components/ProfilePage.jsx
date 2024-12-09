@@ -3,17 +3,17 @@ import icon_left from './images/icon_left.png'
 import avatar_icon from './images/avatar_icon.png'
 import kebab_icon from './images/kebab_icon.png'
 import expand_icon from './images/expand_icon.png'
-
+import { Link } from "react-router-dom"
 
 export default function ProfilePage(){
     
     return  <section className="flex-col">
                 <nav className='flex justify-between items-center  bg-neutral-200'>
                 
-                    <div className='flex items-center'>
+                    <Link className='flex items-center' to={"/HistoryPage"}>
                         <img src={icon_left} alt="icon not found" className="w-[40px] h-[40px]" />
                         <p className='text-[#051320] text-[20px] font-semibold	line-[24px]'>Profile & Settings</p>
-                    </div>
+                    </Link>
 
                     <img src={kebab_icon} alt="icon not found" className="w-[40px] h-[40px]" />
 
