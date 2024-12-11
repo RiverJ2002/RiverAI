@@ -1,6 +1,6 @@
 import send_icon from './images/send_icon.png';  
  
-import { useState } from "react";
+import { useState , useEffect } from "react";
 
 
 
@@ -15,16 +15,20 @@ export default function ConversationCardMaker({ onSendPrompt }) {
 
 
     var SendPrompt = () => {
+        
         if (userPrompt.trim() === "") return;
     
         // Notify parent to add the new section
         if (onSendPrompt) {
             onSendPrompt(userPrompt);
+            
         }
 
-
+        
         setUserPrompt(''); 
     };
+
+
 
     
 
