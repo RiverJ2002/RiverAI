@@ -15,7 +15,7 @@ export default function ConversationNav(){
     var UploadButton = <img src={upload_icon}  alt="icon not found" className="w-[40px] h-[40px]
     mr-[24px] ml-[auto]" />
 
-    return <nav className=" flex items-center bg-fuchsia-400 mt-[24px] mb-[60px]">
+    return <nav className=" flex items-center mt-[24px] mb-[60px]">
                 <img src={h_munu_icon} alt="icon not found" className="w-[40px] h-[40px]" />
                 <img src={openai_icon} alt="icon not found" className="w-[40px] h-[40px] ml-[12px]" />
                 <p className="text-[#051320] text-[20px] leading-[24px]

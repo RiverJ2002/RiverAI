@@ -4,9 +4,11 @@ import ConversationCardMaker from './ConversationCardMaker.jsx';
 import avatar_icon from './images/avatar_icon.png';
 import edit_icon from './images/edit_icon.png';
 import copy_icon from './images/copy_icon.png';
-
+import default_chat from './images/default_chat.png'
 import CheriCheriLady from './images/CheriCheriLady.png';
 import extra from './images/extra.png';
+import Groq from "groq-sdk";
+
 
 export default function ChatPage() {
     const [prompts, setPrompts] = useState([]);
@@ -24,21 +26,79 @@ export default function ChatPage() {
     }, []); // Empty dependency array ensures this runs only on mount
 
 
-    const addPromptSection = (prompt) => {
-
+    const addPromptSection = async (prompt) => {
         // Add the new prompt to the local state
         setPrompts([...prompts, prompt]);
-
-        newConversation.prompts[`prompt${Object.keys(newConversation.prompts).length}`] = prompt;
-
-
-
-        console.log(newConversation)
-
+    
+        // Create a copy of the newConversation
+        const updatedConversation = {
+            ...newConversation,
+            prompts: {
+                ...newConversation.prompts,
+                [`prompt${Object.keys(newConversation.prompts).length}`]: prompt,
+            },
+        };
+    
+        // Update the API with the new conversation data
+        await fetch(`https://6756066c11ce847c992bcae8.mockapi.io/Conversations/${newConversation.id}`, {
+            method: 'PUT', // or PATCH
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedConversation), // Send the updated conversation object
+        }).then(res => res.json())
+          .then(data => {
+              console.log('Updated Conversation:', data);
+              // Update the state with the new conversation
+              setNewConversation(updatedConversation);
+          })
+          .catch(error => {
+              console.error('Error updating conversation:', error);
+          });
+    
         // Hide suggestions and welcome message after successful update
         setShow(false);
     };
 
+
+
+    var ResponseFromAI = async(inputText) => {
+        const apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
+        
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer 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',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: "llama2-70b-4096", // or mixtral-8x7b-32768
+              messages: [
+                {
+                  role: "user",
+                  content: inputText
+                }
+              ],
+              max_tokens: 250,
+              temperature: 0.7
+            })
+          });
+      
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+      
+          const data = await response.json();
+          return data.choices[0].message.content;
+        } catch (error) {
+          console.error('Error calling chatbot:', error);
+          return null;
+        }
+      }
+      
+
+
+      
+    
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
     const cards = prompts.map((prompt, index) => (
         <section key={index} className="bg-amber-300 px-[24px] box-border">
@@ -60,20 +120,67 @@ export default function ChatPage() {
                     <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Copy</p>
                 </div>
             </div>
+
+
+            <p>{ResponseFromAI(prompt)}</p>
             <img src={CheriCheriLady} alt="icon not found" className="mb-[24px]" />
         </section>
     ));
 
+
+
+
+    const items = [
+        {
+            title: "Brainstorm names",
+            description: "for my fantasy football team with a frog theme"
+        },
+        {
+            title: "Suggest some codenames",
+            description: "for a project introducing flexible work arrangements"
+        },
+        {
+            title: "Write a SQL query",
+            description: 'that adds a "status" column to an "orders" table'
+        },
+        {
+            title: "Explain why popcorn pops",
+            description: "to a kid who loves watching it in the microwave"
+        },
+    ];
+
+
+
     return (
-        <section className="box-border px-[16px]">
+        <section className="box-border px-[16px] flex flex-col ">
             <ConversationNav />
 
             {show && (
-                <section className="bg-zinc-200">
-                    <p className="text-[#051320] mb-[32px] text-[16px] leading-[20px] font-semibold">
+                <section className="flex flex-col mb-[16px]">
+                    <p className="text-[#051320] mb-[32px] text-[16px] leading-[20px] font-semibold text-center">
                         How can I help you, my friend? 😊️
                     </p>
-                    <img src={extra} alt="icon not found" className=" mb-[24px]" />
+
+                    <section className="bg-[white]">
+
+                    <div>
+
+                        {items.map((item, index) => (
+                            <div 
+                                key={index} 
+                                onClick={() => addPromptSection(item.title+" "+item.description)} 
+                                className="border border-[#EBEDEC] mb-[16px] rounded-[36px] p-[24px] flex"
+                            >
+                                <div>
+                                    <p className="text-[#051320] text-[16px] line-[20px] font-semibold mb-[12px]">{item.title}</p>
+                                    <p className="text-[#051320] opacity-[0.7]">{item.description}</p>
+                                </div>
+                                <img src={default_chat} alt="icon not found" className="w-[24px] h-[24px] ml-[auto]" />
+                            </div>
+                        ))}
+                    </div>
+
+                    </section>
                 </section>
             )}
 

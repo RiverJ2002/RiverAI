@@ -33,10 +33,10 @@ export default function ConversationCardMaker({ onSendPrompt }) {
     
 
     return (
-        <section className="w-[100%] bg-orange-300 flex items-center">
+        <section className="w-[100%] flex items-center">
             <textarea
                 placeholder="Ask me anything..."
-                className="text-[16px] w-[100%] h-[56px] mr-[12px] bg-white border border-red-500 rounded-[30px] resize-none px-[16px] py-[14px] outline-none"
+                className="text-[16px] w-[100%] h-[60px] mr-[12px] bg-white border border-[#EBEDEC] rounded-[30px] resize-none px-[16px] py-[16px] outline-none"
                 rows="1"
                 value={userPrompt}
                 onInput={PromptInputChange}
@@ -46,7 +46,7 @@ export default function ConversationCardMaker({ onSendPrompt }) {
                 src={send_icon}
                 onClick={SendPrompt}
                 alt="Send Icon"
-                className="w-[56px] h-[56px] ml-auto mr-[24px]"
+                className="w-[56px] h-[56px] ml-auto mr-[0]"
             />
         </section>
     );

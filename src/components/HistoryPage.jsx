@@ -10,17 +10,36 @@ import { Link } from "react-router-dom"
 export default function HistoryPage() {
     const navigate = useNavigate();
 
-    const StartNewConversation = () => {
+    const StartNewConversation = async () => {
+        // The data that will be sent to MockApi is originated here along with the user prompt. 
+        const NowTime = new Date().toLocaleString();
+
+        const NewConversation = {
+            prompts: {},
+            time: NowTime
+        };
+
+        
+        // the exact time that this component is called is when the user attempts to make a new conversation.
+        //meaning that we'll have the time in which each converstion started. 
+        await fetch('https://6756066c11ce847c992bcae8.mockapi.io/Conversations', {
+            method: 'POST',
+            headers: {'content-type':'application/json'},
+            // Send your data in the request body as JSON
+            body: JSON.stringify(NewConversation)
+        }).then((res) => res.json)
+        
+
         // Navigate to ChatPage and pass the conversation ID or other data
         navigate('./ChatPage');
         
     };
 
     return (
-        <section className="flex-col bg-neutral-200">
+        <section className="flex-col bg-white">
             {/* the nav section of the history page */}
-            <section className="flex justify-between h-[100%] items-center box-border px-[24px] pt-[24px]">
-                <Link className="bg-[#01CD98] h-[56px] flex items-center" to={"/"}>
+            <section className="flex justify-between items-center box-border px-[24px] pt-[24px]">
+                <Link className=" h-[56px] flex items-center" to={"/"}>
                     <img src={icon_left} alt="icon not found" className="w-[40px] h-[40px]" />
                     <p className="text-[20px] ml-[12px]">Back</p>
                 </Link>
@@ -31,7 +50,7 @@ export default function HistoryPage() {
             </section>
 
             {/* The header part of the history page */}
-            <section className="mt-[24px] bg-yellow-400 box-border p-[24px]">
+            <section className="mt-[24px] box-border p-[24px]">
                 <h1 className="text-[#051320] text-[40px]">Start a new chat</h1>
 
                 {/* The with gpt icon section */}
