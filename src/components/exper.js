@@ -9,5 +9,5 @@ const GetResponse = async (prompt) => {
   return response.message.content;  
 };  
 
-const result = await GetResponse("Hello");  
+const result = 
 console.log(result);

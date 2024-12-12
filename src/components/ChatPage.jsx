@@ -6,7 +6,7 @@ import edit_icon from './images/edit_icon.png';
 import copy_icon from './images/copy_icon.png';
 import default_chat from './images/default_chat.png'
 import CheriCheriLady from './images/CheriCheriLady.png';
-import ollama from 'ollama'
+
 
 
 
@@ -58,26 +58,16 @@ export default function ChatPage() {
           });
 
 
-          getres(prompt)
+          
     
         // Hide suggestions and welcome message after successful update
         setShow(false);
     };
 
-    const GetResponse = async (prompt) => {  
-        const response = await ollama.chat({  
-          model: 'llama3.2:1b',  
-          messages: [{ role: 'user', content: prompt }],  
-        });  
-      
-        return response.message.content;  
-      };  
+
       
 
-    var getres = async(prompt)=>{
-        var res = await GetResponse(prompt); 
-        setres(res)
-    }
+ 
      
     
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
@@ -102,7 +92,7 @@ export default function ChatPage() {
                 </div>
             </div>
 
-            <p>{res}</p>
+            
             <img src={CheriCheriLady} alt="icon not found" className="mb-[24px]" />
         </section>
     ));
