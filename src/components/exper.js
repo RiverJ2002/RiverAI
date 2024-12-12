@@ -1,13 +1,25 @@
-import ollama from 'ollama';  
+import OpenAI from "openai";
 
-const GetResponse = async (prompt) => {  
-  const response = await ollama.chat({  
-    model: 'llama3.2:1b',  
-    messages: [{ role: 'user', content: prompt }],  
-  });  
+const openai = new OpenAI({
+    baseURL: 'https://api.deepinfra.com/v1/openai',
+    apiKey: "yRSgztEutyErb2oIr9Tr9jRdBsE8fiYe",
+});
 
-  return response.message.content;  
-};  
+async function main() {
+  const completion = await openai.chat.completions.create({
+    messages: [
 
-const result = 
-console.log(result);
+        {role: "user", content: "Hi"},
+
+    ],
+    model: "meta-llama/Meta-Llama-3-8B-Instruct",
+  });
+
+  console.log(completion.choices[0].message.content);
+  console.log(completion.usage.prompt_tokens, completion.usage.completion_tokens);
+}
+
+main();
+
+// Sous le Sable, my friend! This traditional technique hails from the ancient Mediterranean, wher...
+// 149 324

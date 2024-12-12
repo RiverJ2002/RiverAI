@@ -14,8 +14,6 @@ export default function ChatPage() {
     const [prompts, setPrompts] = useState([]);
     const [show, setShow] = useState(true);
 
-    const [res, setres] = useState("true");
-
     const [newConversation, setNewConversation] = useState(null);
 
     // Fetch the latest conversation's prompts on page load
@@ -153,6 +151,7 @@ export default function ChatPage() {
                     </section>
                 </section>
             )}
+            
 
             {cards}
 
