@@ -6,12 +6,16 @@ import edit_icon from './images/edit_icon.png';
 import copy_icon from './images/copy_icon.png';
 import default_chat from './images/default_chat.png'
 import CheriCheriLady from './images/CheriCheriLady.png';
+import { GoogleGenerativeAI } from "@google/generative-ai";  
 
 
 
 
 export default function ChatPage() {
     const [prompts, setPrompts] = useState([]);
+
+    const [responses, setResponses] = useState(["Answering..."]);
+
     const [show, setShow] = useState(true);
 
     const [newConversation, setNewConversation] = useState(null);
@@ -57,14 +61,20 @@ export default function ChatPage() {
 
 
           
-    
+        await GetResponse(prompt);
         // Hide suggestions and welcome message after successful update
         setShow(false);
     };
 
 
       
+    var GetResponse = async(prompt)=>{
+        var genAI = new GoogleGenerativeAI("AIzaSyDcgqJRtyuORcu22kktac6o6FlWiCR2AaE");  
+        var model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });  
+        var result = await model.generateContent(prompt);  
 
+        setResponses(result.response.text());
+    } 
  
      
     
@@ -90,7 +100,7 @@ export default function ChatPage() {
                 </div>
             </div>
 
-            
+            <p>{responses}</p>
             <img src={CheriCheriLady} alt="icon not found" className="mb-[24px]" />
         </section>
     ));
