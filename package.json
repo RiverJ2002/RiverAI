@@ -1,6 +1,5 @@
 {
   "name": "project5",
-  "homepage": "https://riverj2002.github.io/RiverAI/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,9 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "bpm run build",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

@@ -1,6 +1,6 @@
 import send_icon from './images/send_icon.png';  
  
-import { useState , useEffect } from "react";
+import { useState } from "react";
 
 
 
