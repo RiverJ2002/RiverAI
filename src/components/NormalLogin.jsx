@@ -19,10 +19,10 @@ export default function NormalLogin(){
     }
     
     
-    return <form className="flex-col bg-fuchsia-400 flex justify-center mt-[40px]  px-[32px] box-border">
+    return <form className="flex-col flex justify-center mt-[40px]  px-[32px] box-border">
 
       {/* The login page header section */}
-      <section className="bg-lime-200 mb-[40px]">
+      <section className=" mb-[40px]">
         <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
         <h1 className="text-[4rem] mb-[16px]">Login to your <br /> account</h1>
         <p className="text-[1.6rem]">Don’t have an account? <span className="text-[#01CD98]"><a href="">Sign Up</a></span></p>
@@ -72,18 +72,18 @@ export default function NormalLogin(){
       </div>
       
 
-      <section className="w-[100%] h-[56px] bg-blue-400 flex justify-between">
+      <section className="w-[100%] h-[56px] flex justify-between">
 
         {/* Login with google button */}
         <button className="flex items-center justify-center
-         bg-amber-200 rounded-[36px] w-[178px]">
+          rounded-[36px] w-[178px]">
           <img src={google_icon} alt="icon not found" className="w-[28px] h-[28px]"/>
           <p className="ml-[8px] text-[#051320] text-[16px]"><b>Google</b></p>
         </button>
 
         {/* Login with facebook button */}
         <button className="flex items-center justify-center
-         bg-amber-200 rounded-[36px] w-[178px]">
+          rounded-[36px] w-[178px]">
           <img src={facebook_icon} alt="icon not found" className="w-[28px] h-[28px] "/>
           <p className="ml-[8px] text-[#051320] text-[16px]"><b>Facebook</b></p>
         </button>

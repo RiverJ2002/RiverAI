@@ -6,13 +6,16 @@ import edit_icon from './images/edit_icon.png';
 import copy_icon from './images/copy_icon.png';
 import default_chat from './images/default_chat.png'
 import CheriCheriLady from './images/CheriCheriLady.png';
-import extra from './images/extra.png';
-import Groq from "groq-sdk";
+import ollama from 'ollama'
+
 
 
 export default function ChatPage() {
     const [prompts, setPrompts] = useState([]);
     const [show, setShow] = useState(true);
+
+    const [res, setres] = useState("true");
+
     const [newConversation, setNewConversation] = useState(null);
 
     // Fetch the latest conversation's prompts on page load
@@ -53,51 +56,29 @@ export default function ChatPage() {
           .catch(error => {
               console.error('Error updating conversation:', error);
           });
+
+
+          getres(prompt)
     
         // Hide suggestions and welcome message after successful update
         setShow(false);
     };
 
-
-
-    var ResponseFromAI = async(inputText) => {
-        const apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
-        
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Authorization': 'Bearer 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',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              model: "llama2-70b-4096", // or mixtral-8x7b-32768
-              messages: [
-                {
-                  role: "user",
-                  content: inputText
-                }
-              ],
-              max_tokens: 250,
-              temperature: 0.7
-            })
-          });
+    const GetResponse = async (prompt) => {  
+        const response = await ollama.chat({  
+          model: 'llama3.2:1b',  
+          messages: [{ role: 'user', content: prompt }],  
+        });  
       
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-      
-          const data = await response.json();
-          return data.choices[0].message.content;
-        } catch (error) {
-          console.error('Error calling chatbot:', error);
-          return null;
-        }
-      }
+        return response.message.content;  
+      };  
       
 
-
-      
+    var getres = async(prompt)=>{
+        var res = await GetResponse(prompt); 
+        setres(res)
+    }
+     
     
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
     const cards = prompts.map((prompt, index) => (
@@ -121,8 +102,7 @@ export default function ChatPage() {
                 </div>
             </div>
 
-
-            <p>{ResponseFromAI(prompt)}</p>
+            <p>{res}</p>
             <img src={CheriCheriLady} alt="icon not found" className="mb-[24px]" />
         </section>
     ));

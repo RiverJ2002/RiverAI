@@ -1,21 +1,13 @@
-import Groq from "groq-sdk";
+import ollama from 'ollama';  
 
-const groq = new Groq({ apiKey: "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" });
+const GetResponse = async (prompt) => {  
+  const response = await ollama.chat({  
+    model: 'llama3.2:1b',  
+    messages: [{ role: 'user', content: prompt }],  
+  });  
 
-export async function main() {
-  const chatCompletion = await getGroqChatCompletion();
-  // Print the completion returned by the LLM.
-  console.log(chatCompletion.choices[0]?.message?.content || "");
-}
+  return response.message.content;  
+};  
 
-export async function getGroqChatCompletion() {
-  return groq.chat.completions.create({
-    messages: [
-      {
-        role: "user",
-        content: "Explain the importance of fast language models",
-      },
-    ],
-    model: "llama-3.2-1b-preview",
-  });
-}
+const result = await GetResponse("Hello");  
+console.log(result);
