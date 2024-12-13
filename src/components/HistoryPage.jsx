@@ -15,8 +15,9 @@ export default function HistoryPage() {
         const NowTime = new Date().toLocaleString();
 
         const NewConversation = {
-            prompts: {},
-            time: NowTime
+            history:[],
+            time: NowTime,
+            model: "gemini"
         };
 
         
@@ -45,7 +46,7 @@ export default function HistoryPage() {
                 </Link>
 
                 <Link to={"ProfilePage"}>
-                    <img src={avatar_icon} alt="icon not found" className="w-[40px] h-[40px] mr-[16px]" />
+                    <img src={avatar_icon} alt="icon not found" className="w-[40px] h-[40px] " />
                 </Link>
             </section>
 

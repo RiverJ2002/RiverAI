@@ -15,7 +15,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 export default function ChatPage() {
     const [prompts, setPrompts] = useState([]);
 
-    const [responses, setResponses] = useState([""]);
+    const [responses, setResponses] = useState({});
 
     const [show, setShow] = useState(true);
 
@@ -34,60 +34,92 @@ export default function ChatPage() {
                 setNewConversation(lastConversation); 
                 
             });
+
             
     }, []); // Empty dependency array ensures this runs only on mount
 
 
 
-    const addPromptSection = async (prompt) => {
+    var addPromptSection = async (prompt) => {
         // Add the new prompt to the local state
         setPrompts([...prompts, prompt]);
-    
-        // Create a copy of the newConversation
-        const updatedConversation = {
-            ...newConversation,
-            prompts: {
-                ...newConversation.prompts,
-                [`prompt${Object.keys(newConversation.prompts).length}`]: prompt,
-            },
-        };
-    
-        // Update the API with the new conversation data
-        await fetch(`https://6756066c11ce847c992bcae8.mockapi.io/Conversations/${newConversation.id}`, {
-            method: 'PUT', // or PATCH
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedConversation), // Send the updated conversation object
-        }).then(res => res.json())
-          .then(data => {
-              console.log('Updated Conversation:', data);
-              // Update the state with the new conversation
-              setNewConversation(updatedConversation);
-          })
-          .catch(error => {
-              console.error('Error updating conversation:', error);
-          });
+        setResponses((prev) => ({ ...prev, [prompt]: "" }));
 
-          GetResponse(prompt)
-          
         
-        // Hide suggestions and welcome message after successful update
-        setShow(false);
+        
+        if (newConversation.model === "gemini") {
+            var ThisResponse = await UseGemini(prompt, []);
+            
+            const updatedHistory = [
+                ...newConversation.history,
+                { role: "user", parts: [{ text: prompt }] },
+                { role: "model", parts: [{ text: ThisResponse }] },
+            ];
+            
+            const updatedConversation = {
+                ...newConversation,
+                history: updatedHistory,
+            };
+            
+            setNewConversation(updatedConversation);
+
+
+
+
+
+            // Update this conversaion card content to the server
+            try {
+                const response = await fetch(
+                    `https://6756066c11ce847c992bcae8.mockapi.io/Conversations/${newConversation.id}`, 
+                    {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedConversation),
+                    }
+                );
+
+                if (!response.ok) {
+                    console.error('Failed to update conversation on the server');
+                } else {
+                    const updatedData = await response.json();
+                    console.log('Server updated successfully:', updatedData);
+                }
+            } catch (error) {
+                console.error('Error updating conversation:', error);
+            }
+        }
+
+       
+
+        setShow(false); // Hide suggestions and welcome message
     };
-
+    
 
       
-    var GetResponse = async (prompt) => {  
-        const genAI = new GoogleGenerativeAI('AIzaSyDcgqJRtyuORcu22kktac6o6FlWiCR2AaE');  
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });  
-        const chat = model.startChat({});  
+    const UseGemini = async (prompt, history) => {
+        const genAI = new GoogleGenerativeAI('AIzaSyDcgqJRtyuORcu22kktac6o6FlWiCR2AaE');
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const chat = model.startChat({ history });
+        let result = await chat.sendMessageStream(prompt);
+
+
+        let responseText = "";
+        for await (const chunk of result.stream) {
+            const chunkText = chunk.text();
+            responseText += chunkText;
+
+            //I learned this syntax from chatgpt. sometimes I like to see what it gives me. 
+            //sometimes it can be a learning tool :) :)
+            setResponses((prev) => ({
+                ...prev,
+                [prompt]: prev[prompt] + chunkText // Append chunk to the response for this prompt
+            }));
+        }
+
+        return responseText;
+    };
       
-        let responseText = '';  
-        const result = await chat.sendMessageStream(prompt);  
-        for await (const chunk of result.stream) {  
-          responseText += chunk.text();  
-          setResponses((prevResponses) => [...prevResponses, chunk.text()]);  
-        }  
-      };
+
  
     
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
@@ -118,7 +150,7 @@ export default function ChatPage() {
                     <h1 className="text-[#051320] text-[16px] ml-[12px] font-semibold line-[24px]">Chat Bot AI</h1>
                 </div>
                 
-                <p className="whitespace-pre-wrap font-normal text-[16px] text-[#051320] line-[24px] mt[16px]">{responses}</p>
+                <p key={index} className="whitespace-pre-wrap font-normal text-[16px] text-[#051320] line-[24px] mt[16px]"> {responses[prompt] || "Processing..."}</p>
             </section>
             
         </section>
