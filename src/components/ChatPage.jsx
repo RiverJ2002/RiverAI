@@ -101,7 +101,7 @@ export default function ChatPage() {
             </div>
 
             <p>{responses}</p>
-            <img src={CheriCheriLady} alt="icon not found" className="mb-[24px]" />
+            
         </section>
     ));
 
@@ -147,7 +147,7 @@ export default function ChatPage() {
                             <div 
                                 key={index} 
                                 onClick={() => addPromptSection(item.title+" "+item.description)} 
-                                className="border border-[#EBEDEC] mb-[16px] rounded-[36px] p-[24px] flex"
+                                className="border border-[#EBEDEC] mb-[16px] rounded-[36px] p-[24px] flex cursor-pointer"
                             >
                                 <div>
                                     <p className="text-[#051320] text-[16px] line-[20px] font-semibold mb-[12px]">{item.title}</p>

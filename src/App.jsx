@@ -3,7 +3,7 @@ import './App.css'
 import HistoryPage from './components/HistoryPage';
 import NormalLogin from './components/NormalLogin'
 import ChatPage from './components/ChatPage'
-
+import SignInPage from './components/SignInPage'
 import { createBrowserRouter , RouterProvider} from 'react-router-dom'
 import ProfilePage from './components/ProfilePage';
 
@@ -28,6 +28,12 @@ var router = createBrowserRouter([{
   path: '/HistoryPage/ProfilePage',
   element: <ProfilePage/>,
   errorElement: <div>404 not found</div>
+},
+
+{
+  path: '/SignInPage',
+  element: <SignInPage/>,
+  errorElement: <div>404 not found</div>
 }
 
 ]);
@@ -36,7 +42,6 @@ var router = createBrowserRouter([{
 
 
 function App() {
-
   return <RouterProvider router = {router}/>
 }
 
