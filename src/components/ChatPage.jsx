@@ -5,6 +5,7 @@ import avatar_icon from './images/avatar_icon.png';
 import edit_icon from './images/edit_icon.png';
 import copy_icon from './images/copy_icon.png';
 import default_chat from './images/default_chat.png'
+import openai_icon from './images/openai_icon.png'
 import CheriCheriLady from './images/CheriCheriLady.png';
 import { GoogleGenerativeAI } from "@google/generative-ai";  
 
@@ -14,11 +15,15 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 export default function ChatPage() {
     const [prompts, setPrompts] = useState([]);
 
-    const [responses, setResponses] = useState(["Answering..."]);
+    const [responses, setResponses] = useState([""]);
 
     const [show, setShow] = useState(true);
 
     const [newConversation, setNewConversation] = useState(null);
+
+
+    
+
 
     // Fetch the latest conversation's prompts on page load
     useEffect(() => {
@@ -26,9 +31,12 @@ export default function ChatPage() {
             .then((response) => response.json())
             .then((data) => {
                 const lastConversation = data[data.length - 1];
-                setNewConversation(lastConversation); // Store the latest conversation
+                setNewConversation(lastConversation); 
+                
             });
+            
     }, []); // Empty dependency array ensures this runs only on mount
+
 
 
     const addPromptSection = async (prompt) => {
@@ -59,34 +67,38 @@ export default function ChatPage() {
               console.error('Error updating conversation:', error);
           });
 
-
+          GetResponse(prompt)
           
-        await GetResponse(prompt);
+        
         // Hide suggestions and welcome message after successful update
         setShow(false);
     };
 
 
       
-    var GetResponse = async(prompt)=>{
-        var genAI = new GoogleGenerativeAI("AIzaSyDcgqJRtyuORcu22kktac6o6FlWiCR2AaE");  
-        var model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });  
-        var result = await model.generateContent(prompt);  
-
-        setResponses(result.response.text());
-    } 
+    var GetResponse = async (prompt) => {  
+        const genAI = new GoogleGenerativeAI('AIzaSyDcgqJRtyuORcu22kktac6o6FlWiCR2AaE');  
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });  
+        const chat = model.startChat({});  
+      
+        let responseText = '';  
+        const result = await chat.sendMessageStream(prompt);  
+        for await (const chunk of result.stream) {  
+          responseText += chunk.text();  
+          setResponses((prevResponses) => [...prevResponses, chunk.text()]);  
+        }  
+      };
  
-     
     
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
     const cards = prompts.map((prompt, index) => (
-        <section key={index} className="bg-amber-300 px-[24px] box-border">
+        <section key={index} className="bg-amber-300 px-[24px] box-border mb-[48px] flex flex-col">
             <div className="flex items-center">
                 <img src={avatar_icon} alt="icon not found" className="mr-[12px] w-[24px] h-[24px]" />
                 <p className="text-[#051320] text-[16px] font-semibold leading-[20px]">You</p>
             </div>
 
-            <p className="text-[#051320] text-[14px] font-normal mt-[8px]">{prompt}</p>
+            <p className="text-[#01CD98] text-[16px] line-[24px] font-normal mt-[8px]">{prompt}</p>
             
             <div className="flex mt-[16px]">
                 <div className="flex mr-[16px]">
@@ -100,7 +112,14 @@ export default function ChatPage() {
                 </div>
             </div>
 
-            <p>{responses}</p>
+            <section className="mt-[48px]">
+                <div className="flex items-center">
+                    <img src={openai_icon} alt="icon not found" className="w-[16px] h-[16px]" />
+                    <h1 className="text-[#051320] text-[16px] ml-[12px] font-semibold line-[24px]">Chat Bot AI</h1>
+                </div>
+                
+                <p className="whitespace-pre-wrap font-normal text-[16px] text-[#051320] line-[24px] mt[16px]">{responses}</p>
+            </section>
             
         </section>
     ));
