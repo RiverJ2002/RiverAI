@@ -19,7 +19,7 @@ export default function ProfilePage(){
 
                 </nav>
 
-                <section className='flex flex-col justify-center items-center bg-amber-300 box-border p-[24px]'>
+                <section className='flex flex-col justify-center items-center  box-border p-[24px]'>
                     
                     <img src={avatar_icon} alt="icon not found" className="w-[96px] h-[96px] mb-[24px] mt-[64px]" />
 
@@ -28,7 +28,7 @@ export default function ProfilePage(){
                 </section>
 
                 
-                <section className='bg-violet-400 mt-[24px] box-border p-[24px]'>
+                <section className=' mt-[24px] box-border p-[24px]'>
                     <div className='pb-[24px] border-b-2 flex justify-between'>
                         <p className='text-[#051320] text-[18px] font-medium line-[24px]'>Email</p>
                         <img src={expand_icon} alt="icon not found" className="w-[24px] h-[24px]" />

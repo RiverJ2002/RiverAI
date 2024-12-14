@@ -56,18 +56,27 @@ export default function SignInPage(){
     
 
     
-    return <form className="flex-col flex justify-center mt-[40px]  px-[32px] box-border">
+    return <form className="flex-col w-[100%] flex justify-center mt-[40px]  px-[32px]  box-border lg:flex-row
+     lg:px-0 lg:w-[100%] ">
 
-      {/* The login page header section */}
-      <section className=" mb-[40px]">
+      {/* The signin page header section */}
+      <section className=" mb-[40px] lg:hidden">
         <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
-        <h1 className="font-bebas text-[50px] mb-[16px] text-[#051320]"><b>Sign in to your <br /> account</b></h1>
+        <h1 className="font-bebas text-[50px] mb-[16px] text-[#051320]"><b>Sign in to my <br /> ChatBot</b></h1>
         <p className="text-[1.6rem]">Already have an account? <span className="text-[#01CD98]"><Link to={'/'}>Login</Link></span></p>
       </section>
 
 
+      {/* The sign in  page header section for desktops*/}
+      <section className=" mb-[40px] hidden lg:flex lg:flex-col lg:mr-[50px]">
+          <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
+          <h1 className="text-[50px] mb-[16px]">Sign in to My <br /> ChatBot to start:</h1>
+          <p className="text-[1.6rem]  lg:hidden">Don’t have an account? <span className="text-[#01CD98]"><Link to={"/SignInPage"}>Sign Up</Link></span></p>
+      </section>
+
+
       {/* The section for normal input. (user enters their informaion) */}
-      <section className="bg-white w-[100%] mb-[32px]">
+      <section className="bg-white w-[100%] mb-[32px] lg:w-[60%] ">
         
         {/* The email input section */}
         <section className="flex bg-white rounded-[16px] border-[#dbdcdc] border 
@@ -95,18 +104,18 @@ export default function SignInPage(){
             <img src={avatar_icon} alt="icon not found" className="w-[28px] h-[28px]" />
             <input type={"text"} value={EnteredName} onChange={HandleNameInput} placeholder="name" className="border-none bg-transparent ml-[12px] outline-none	w-[100%] h-[100%] text-[1.4rem]"/>
         </section>
+
+        <Link onClick={HandleSignin}  to={"/HistoryPage"} className="bg-[#01CD98] rounded-[36px] w-[100%] h-[56px] flex items-center
+       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF] hidden lg:flex lg:mt-[64px]" >Sign in</Link>
+
         
-        
-        <section className="flex justify-between items-center  mt-[32px]">  
-            <div></div> {/* Just a placeholder to push the link to the far right */}  
-            <a href="" className="pr-[32px] text-[#01CD98] text-[1.4rem]">Forgot Password?</a>  
-        </section>
+
       </section>
 
 
       
       <Link onClick={HandleSignin}  to={"/"} className="bg-[#01CD98] rounded-[36px] w-[100%] h-[56px] flex items-center
-       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF]" >Sign in</Link>
+       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF] lg:hidden" >Sign in</Link>
 
 
 
@@ -114,7 +123,7 @@ export default function SignInPage(){
       
 
 
-      <a className="mt-[80px] flex justify-center text-[#616161] text-[1.4rem]">Terms of use | Privacy policy</a>
+      <a className="mt-[80px] flex justify-center text-[#616161] text-[1.4rem] lg:hidden">Terms of use | Privacy policy</a>
       
     </form>
 }

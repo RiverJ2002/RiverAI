@@ -29,17 +29,23 @@ export default function ConversationCardMaker({ onSendPrompt }) {
     };
 
 
-
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault(); // Prevent adding a new line when enter is pressed. no coflict anymore
+            SendPrompt();
+        }
+    };
     
 
     return (
-        <section className="w-[100%] flex items-center">
+        <section className="w-[100%] flex items-center lg:hidden">
             <textarea
                 placeholder="Ask me anything..."
-                className="text-[16px] w-[100%] h-[60px] mr-[12px] bg-white border border-[#EBEDEC] rounded-[30px] resize-none px-[16px] py-[16px] outline-none"
+                className="text-[16px] w-[100%] h-[60px] mr-[12px] border border-[#EBEDEC] rounded-[30px] resize-none px-[16px] py-[16px] outline-none"
                 rows="1"
                 value={userPrompt}
                 onInput={PromptInputChange}
+                onKeyDown={handleKeyDown}
             ></textarea>
 
             <img

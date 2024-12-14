@@ -297,7 +297,7 @@ export default function ChatPage() {
 
 
     return (
-        <section className="box-border px-[16px] flex flex-col ">
+        <section className="box-border px-[16px] flex flex-col lg:w-[100%]">
             <ConversationNav />
 
             {show && (
@@ -306,7 +306,7 @@ export default function ChatPage() {
                         How can I help you, my friend? 😊️
                     </p>
 
-                    <section className="bg-[white]">
+                    <section className="">
 
                     <div>
 

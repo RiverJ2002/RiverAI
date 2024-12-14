@@ -66,10 +66,10 @@ export default function NormalLogin(){
     };
     
     return <form className="flex-col flex justify-center mt-[40px]  px-[32px] box-border 
-    lg:bg-orange-300 lg:flex-row">
+     lg:flex-row flex-wrap">
 
       {/* The login page header section */}
-      <section className=" mb-[40px] lg:bg-green-300 lg:mr-[50px]">
+      <section className=" mb-[40px] lg:mr-[50px]">
         <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
         <h1 className="text-[4rem] mb-[16px]">Login to your <br /> account</h1>
         <p className="text-[1.6rem]  lg:hidden">Don’t have an account? <span className="text-[#01CD98]"><Link to={"/SignInPage"}>Sign Up</Link></span></p>
@@ -80,11 +80,11 @@ export default function NormalLogin(){
 
 
       {/* The section for normal input. (user enters their informaion) */}
-      <section className="bg-white w-[100%] mb-[32px] lg:bg-teal-400 lg:flex lg: flex-col
-      lg: justify-center">
+      <section className=" w-[100%] mb-[32px]  lg:flex lg: flex-col
+      lg: justify-center lg:w-[60%]">
         
         {/* The email input section */}
-        <section className="flex bg-white rounded-[16px] border-[#dbdcdc] border 
+        <section className="flex rounded-[16px] border-[#dbdcdc] border 
         border-solid h-[56px] items-center ">
 
           <img src={email_icon} alt="icon not found" className="w-[28px] h-[28px] ml-[16px]" />
@@ -93,7 +93,7 @@ export default function NormalLogin(){
         </section>
 
         {/* The password input section */}
-        <section className="flex bg-white rounded-[16px] border-[#dbdcdc] border
+        <section className="flex  rounded-[16px] border-[#dbdcdc] border
         border-solid h-[56px] items-center box-border px-[16px] mt-[24px]">
 
           <img src={key_icon} alt="icon not found" className="w-[28px] h-[28px]" />
@@ -113,18 +113,13 @@ export default function NormalLogin(){
 
       </section>
 
-      {/* The sign in  page header section for desktops*/}
-      <section className=" mb-[40px] lg:bg-green-300 lg:mr-[50px] hidden lg:block lg:ml-[50px]  lg:mr-[50px]">
-          <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
-          <h1 className="text-[4rem] mb-[16px]">Sign in to My <br /> ChatBot</h1>
-          <p className="text-[1.6rem]  lg:hidden">Don’t have an account? <span className="text-[#01CD98]"><Link to={"/SignInPage"}>Sign Up</Link></span></p>
-      </section>
+
       
       <Link onClick={LogIn} className="bg-[#01CD98] rounded-[36px] w-[100%] h-[56px] flex items-center
-       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF] lg: hidden" to={"HistoryPage"}>Login</Link>
+       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF] lg:hidden" to={"HistoryPage"}>Login</Link>
 
 
-      <SignInPage />
+
 
 
       {/* Other ways to login */}
@@ -155,6 +150,10 @@ export default function NormalLogin(){
 
       <a className="mt-[112px] flex justify-center text-[#616161] text-[1.4rem] lg:hidden">Terms of use | Privacy policy</a>
       
+
+      <div className="hidden lg:block lg:w-[100%] lg:flex lg:flex-wrap">
+        <SignInPage />
+      </div>
     </form>
 }
 

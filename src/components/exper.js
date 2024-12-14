@@ -14,7 +14,7 @@ const cohere = new CohereClientV2({
       },
 
       {
-        role: 'assistant',
+        role: 'model',
         content: 'stars die when they run out of gas',
       },
 
