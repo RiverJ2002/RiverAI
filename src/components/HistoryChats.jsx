@@ -52,7 +52,7 @@ export default function HistoryChats() {
     const nonEmptyConversations = conversations.filter(conversation => conversation.history.length > 0);
 
     const ConversationSections = nonEmptyConversations.map((conversation, index) => (
-        <section onClick={() => GoToConversation(conversation.id)} key={index} className="w-[190px] mb-[16px] ml-[16px] border rounded-[36px] bg-orange-200 py-[32px] px-[24px] box-border	cursor-pointer">
+        <section onClick={() => GoToConversation(conversation.id)} key={index} className="w-[190px] mb-[16px] ml-[16px] border rounded-[36px] py-[32px] px-[24px] box-border	cursor-pointer">
             {extractPrompts(conversation.history)}
             <p className='text-[#616161] text-[14px] font-normal line-[18px] mt-[20px]'>{conversation.time}</p>
         </section>

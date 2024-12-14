@@ -30,7 +30,7 @@ export default function ConversationNav(){
       // Function to apply theme to the document body
   const applyTheme = (selectedTheme) => {
 
-      document.documentElement.classList.toggle("dark", selectedTheme === "dark");
+    document.documentElement.classList.toggle("dark", selectedTheme === "dark");
     
   };
 
