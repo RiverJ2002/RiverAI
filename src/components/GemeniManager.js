@@ -11,6 +11,15 @@ var history =  [
     role: "model",
     parts: [{ text: "Great to meet you. What would you like to know?" }],
   },
+
+  {
+    role: "user",
+    parts: [{ text: "ascadsvadvd" }],
+  },
+  {
+    role: "model",
+    parts: [{ text: "reat to meekmrtrjuktut would iukikryujrye to know?" }],
+  },
 ]
 
 

@@ -6,8 +6,9 @@ import edit_icon from './images/edit_icon.png';
 import copy_icon from './images/copy_icon.png';
 import default_chat from './images/default_chat.png'
 import openai_icon from './images/openai_icon.png'
-import CheriCheriLady from './images/CheriCheriLady.png';
+import regenerate_icon from './images/regenerate_icon.png'
 import { GoogleGenerativeAI } from "@google/generative-ai";  
+import { useLocation } from 'react-router-dom';  
 
 
 
@@ -21,22 +22,50 @@ export default function ChatPage() {
 
     const [newConversation, setNewConversation] = useState(null);
 
+    const location = useLocation();
 
+    // Get the conversationId from the router state
+    const conversationId = location.state?.conversationId;
     
 
 
-    // Fetch the latest conversation's prompts on page load
     useEffect(() => {
-        fetch('https://6756066c11ce847c992bcae8.mockapi.io/Conversations')
-            .then((response) => response.json())
-            .then((data) => {
-                const lastConversation = data[data.length - 1];
-                setNewConversation(lastConversation); 
-                
-            });
+        if (conversationId) {
+            // Fetch the specific conversation by ID
+            fetch(`https://6756066c11ce847c992bcae8.mockapi.io/Conversations/${conversationId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    setNewConversation(data);
+                    
+                    // Populate prompts and responses from the conversation history
+                    const userEntries = data.history.filter(entry => entry.role === 'user');
+                    const modelEntries = data.history.filter(entry => entry.role === 'model');
+                    
+                    const extractedPrompts = userEntries.map(entry => entry.parts[0].text);
+                    setPrompts(extractedPrompts);
+                    
+                    // Create responses object
+                    const responsesObj = {};
+                    extractedPrompts.forEach((prompt, index) => {
+                        if (modelEntries[index]) {
+                            responsesObj[prompt] = modelEntries[index].parts[0].text;
+                        }
+                    });
+                    setResponses(responsesObj);
+                    
+                    setShow(false); // Hide suggestions
+                });
+        } else {
+            // Fallback to existing logic if no conversation ID is provided
+            fetch('https://6756066c11ce847c992bcae8.mockapi.io/Conversations')
+                .then((response) => response.json())
+                .then((data) => {
+                    const lastConversation = data[data.length - 1];
+                    setNewConversation(lastConversation);
+                });
+        }
+    }, [conversationId]); 
 
-            
-    }, []); // Empty dependency array ensures this runs only on mount
 
 
 
@@ -120,8 +149,28 @@ export default function ChatPage() {
     };
       
 
- 
+    var RegenerateResponse = (prompt) => {
+        // Find the index of the prompt to be regenerated
+        const promptIndex = prompts.indexOf(prompt);
     
+        // Remove the current prompt
+        const updatedPrompts = [...prompts];
+        updatedPrompts.splice(promptIndex, 1);
+        setPrompts(updatedPrompts);
+    
+        // Clear the response for this prompt
+        const updatedResponses = { ...responses };
+        delete updatedResponses[prompt];
+        setResponses(updatedResponses);
+    
+        // Re-add the prompt to regenerate a new response
+        setTimeout(() => {
+            addPromptSection(prompt);
+        }, 0);
+    };
+ 
+
+
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
     const cards = prompts.map((prompt, index) => (
         <section key={index} className="bg-amber-300 px-[24px] box-border mb-[48px] flex flex-col">
@@ -134,12 +183,12 @@ export default function ChatPage() {
             
             <div className="flex mt-[16px]">
                 <div className="flex mr-[16px]">
-                    <img src={edit_icon} alt="icon not found" className="w-[16px] h-[16px]" />
+                    <img src={edit_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
                     <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Edit</p>
                 </div>
 
                 <div className="flex">
-                    <img src={copy_icon} alt="icon not found" className="w-[16px] h-[16px]" />
+                    <img src={copy_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
                     <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Copy</p>
                 </div>
             </div>
@@ -152,6 +201,27 @@ export default function ChatPage() {
                 
                 <p key={index} className="whitespace-pre-wrap font-normal text-[16px] text-[#051320] line-[24px] mt[16px]"> {responses[prompt] || "Processing..."}</p>
             </section>
+
+
+
+            <div className="flex mt-[16px]">
+                <div className="flex mr-[16px]">
+                    <img src={edit_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
+                    <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Edit</p>
+                </div>
+                
+                <div onClick={navigator.clipboard.writeText(responses[prompt])} className="flex mr-[8px] cursor-pointer">
+                    <img src={copy_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
+                    <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Copy</p>
+                </div>
+
+
+                <div onClick={() => RegenerateResponse(prompt)} className="flex cursor-pointer">
+                    <img src={regenerate_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
+                    <p className="text-[#616161] text-[14px] leading-[18px] font-medium">Regenerate</p>
+                </div>
+
+            </div>
             
         </section>
     ));

@@ -5,6 +5,7 @@ import openai_icon from './images/openai_icon.png';
 import plus_icon from './images/plus_icon.png';
 import search_icon from './images/search_icon.png';
 import { Link } from "react-router-dom"
+import HistoryChats from './HistoryChats'
 
 
 export default function HistoryPage() {
@@ -82,11 +83,13 @@ export default function HistoryPage() {
                     <input type="search" placeholder="Search ..." className="ml-[12px] outline-none w-[100%] h-[100%] text-[1.4rem]" />
                     <img src={search_icon} alt="icon not found" className="w-[24px] h-[24px] mr-[8px]" />
                 </div>
+
+
             </section>
 
             {/* showing previous chats here */}
-            <section>
-            </section>
+            <HistoryChats />
+
         </section>
     );
 }
