@@ -212,7 +212,7 @@ export default function ChatPage() {
 
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
     const cards = prompts.map((prompt, index) => (
-        <section key={index} className="bg-amber-300 px-[24px] box-border mb-[48px] flex flex-col">
+        <section key={index} className=" px-[24px] box-border mb-[48px] flex flex-col">
             <div className="flex items-center">
                 <img src={avatar_icon} alt="icon not found" className="mr-[12px] w-[24px] h-[24px]" />
                 <p className="text-[#051320] text-[16px] font-semibold leading-[20px]">You</p>
@@ -276,24 +276,19 @@ export default function ChatPage() {
 
 
     const items = [
-        {
-            title: "Brainstorm names",
-            description: "for my fantasy football team with a frog theme"
-        },
-        {
-            title: "Suggest some codenames",
-            description: "for a project introducing flexible work arrangements"
-        },
-        {
-            title: "Write a SQL query",
-            description: 'that adds a "status" column to an "orders" table'
-        },
-        {
-            title: "Explain why popcorn pops",
-            description: "to a kid who loves watching it in the microwave"
-        },
+        { title: "Brainstorm names", description: "for my fantasy football team with a frog theme" },
+        { title: "Suggest some codenames", description: "for a project introducing flexible work arrangements" },
+        { title: "Write a SQL query", description: 'that adds a "status" column to an "orders" table' },
+        { title: "Explain why popcorn pops", description: "to a kid who loves watching it in the microwave" },
+        { title: "Who is jinx in Arcane?", description: "She's amazing isn't she?" },
+        { title: "How do stars die?", description: "How could we understand somwthing like this?" },
+        { title: "Write me a simple kivy app that says hello aloud.", description: 'Just something to keep me busy I guess' },
+        { title: "Ada wong, who is she??", description: " Why was she working with Wesker?!" },
     ];
 
+    // Split the items into two groups
+    const ForSmallerScreens = items.slice(0, 4);
+    const ForLargerScreens = items.slice(4);
 
 
     return (
@@ -306,15 +301,37 @@ export default function ChatPage() {
                         How can I help you, my friend? 😊️
                     </p>
 
-                    <section className="">
+                    <section className="lg:flex lg:justify-around">
 
-                    <div>
+                        <div>
 
-                        {items.map((item, index) => (
+                            {ForSmallerScreens.map((item, index) => (
+
+                                <div 
+                                    key={index} 
+                                    onClick={() => addPromptSection(item.title+" "+item.description)} 
+                                    className="border border-[#EBEDEC] mb-[16px] rounded-[36px] p-[24px] flex cursor-pointer"
+                                >
+                                    <div>
+                                        <p className="text-[#051320] text-[16px] line-[20px] font-semibold mb-[12px]">{item.title}</p>
+                                        <p className="text-[#051320] opacity-[0.7]">{item.description}</p>
+                                    </div>
+                                    <img src={default_chat} alt="icon not found" className="w-[24px] h-[24px] ml-[auto]" />
+                                </div>
+
+
+                            ))}
+                        </div>
+
+
+                        <div>
+
+                        {ForLargerScreens.map((item, index) => (
+
                             <div 
                                 key={index} 
                                 onClick={() => addPromptSection(item.title+" "+item.description)} 
-                                className="border border-[#EBEDEC] mb-[16px] rounded-[36px] p-[24px] flex cursor-pointer"
+                                className="border border-[#EBEDEC] md:hidden hidden mb-[16px] rounded-[36px] p-[24px] lg:flex cursor-pointer"
                             >
                                 <div>
                                     <p className="text-[#051320] text-[16px] line-[20px] font-semibold mb-[12px]">{item.title}</p>
@@ -322,8 +339,10 @@ export default function ChatPage() {
                                 </div>
                                 <img src={default_chat} alt="icon not found" className="w-[24px] h-[24px] ml-[auto]" />
                             </div>
+
+
                         ))}
-                    </div>
+                        </div>
 
                     </section>
                 </section>

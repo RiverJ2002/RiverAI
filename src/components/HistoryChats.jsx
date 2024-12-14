@@ -63,7 +63,7 @@ export default function HistoryChats() {
             {ConversationSections.length > 0 ? (
                 ConversationSections
             ) : (
-                <p>Loading conversations...</p>
+                <p>{conversations.length==0 ? "No chats found" : "Loading conversations..."}</p>
             )}
         </section>
     );

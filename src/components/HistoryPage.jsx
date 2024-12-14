@@ -71,7 +71,7 @@ export default function HistoryPage() {
 
                         <button
                             onClick={StartNewConversation}
-                            className="bg-[#01CD98] w-[156px] h-[56px] flex items-center rounded-[36px] hover:bg-blue-600 justify-center"
+                            className="bg-[#01CD98] w-[156px] h-[56px] md:w-[180px] ml-[16px] flex items-center rounded-[36px] hover:bg-blue-600 justify-center"
                         >
                             <img src={plus_icon} alt="icon not found" className="w-[24px] h-[24px] mr-[8px]" />
                             <p className="text-[#FFFFFF] text-[16px]">New Topic</p>
@@ -83,9 +83,9 @@ export default function HistoryPage() {
                 <section className="flex justify-between items-center">
                     <h1 className="text-[#051320] text-[24px] ml-[24px]">History</h1>
 
-                    <div className="flex w-[290px] rounded-[32px] py-[16px] border-[#dbdcdc] border outline-none
+                    <div className="flex w-[290px] md:w-[580px]  rounded-[32px] py-[16px] border-[#dbdcdc] border outline-none
                         border-solid h-[56px] items-center ml-[16px]">
-                        <input type="search" placeholder="Search ..." className="ml-[12px] outline-none w-[100%] h-[100%] text-[1.4rem]" />
+                        <input type="search" placeholder="Search ..." className="ml-[12px] outline-none w-[100%] h-[100%] text-[17px]" />
                         <img src={search_icon} alt="icon not found" className="w-[24px] h-[24px] mr-[8px]" />
                     </div>
 

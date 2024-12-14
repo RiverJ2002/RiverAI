@@ -71,7 +71,7 @@ export default function NormalLogin(){
       {/* The login page header section */}
       <section className=" mb-[40px] lg:mr-[50px]">
         <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
-        <h1 className="text-[4rem] mb-[16px]">Login to your <br /> account</h1>
+        <h1 className="text-[45px] mb-[16px] md:text-[60px]">Login to your <br /> account</h1>
         <p className="text-[1.6rem]  lg:hidden">Don’t have an account? <span className="text-[#01CD98]"><Link to={"/SignInPage"}>Sign Up</Link></span></p>
       </section>
 
@@ -88,7 +88,7 @@ export default function NormalLogin(){
         border-solid h-[56px] items-center ">
 
           <img src={email_icon} alt="icon not found" className="w-[28px] h-[28px] ml-[16px]" />
-          <input type="text" value={EnteredEmail} onChange={HandleEmailInput} placeholder="Email" className=" bg-transparent ml-[12px] outline-none w-[100%] h-[100%] text-[1.4rem]"/>
+          <input type="text" value={EnteredEmail} onChange={HandleEmailInput} placeholder="Email" className=" bg-transparent ml-[12px] outline-none w-[100%] h-[100%] text-[17px]"/>
 
         </section>
 
@@ -97,14 +97,14 @@ export default function NormalLogin(){
         border-solid h-[56px] items-center box-border px-[16px] mt-[24px]">
 
           <img src={key_icon} alt="icon not found" className="w-[28px] h-[28px]" />
-          <input type={PasswordState} value={EnteredPassword} onChange={HandlePasswordInput} placeholder="password" className="border-none bg-transparent ml-[12px] outline-none	w-[100%] h-[100%] text-[1.4rem]"/>
+          <input type={PasswordState} value={EnteredPassword} onChange={HandlePasswordInput} placeholder="password" className="border-none bg-transparent ml-[12px] outline-none	w-[100%] h-[100%] text-[17px]"/>
           <img src={eye_icon} alt="icon not found" className="w-[28px] h-[28px] ml-auto"
            onClick={ManagePasswordState}/>
         </section>
         
         <section className="flex justify-between items-center  mt-[32px]">  
             <div></div> {/* Just a placeholder to push the link to the far right */}  
-            <a href="" className="pr-[32px] text-[#01CD98] text-[1.4rem]">Forgot Password?</a>  
+            <a href="" className="pr-[32px] text-[#01CD98] text-[17px]">Forgot Password?</a>  
         </section>
 
 
@@ -123,10 +123,10 @@ export default function NormalLogin(){
 
 
       {/* Other ways to login */}
-      <div className="flex mb-[32px] items-center justify-between lg:hidden">
-        <div  className="w-[121px] h-[1px] bg-[#EBEDEC]"></div>
-        <p className="text-[#616161] text-[1.4rem]">Or login with</p>
-        <div  className="w-[121px] h-[1px] bg-[#EBEDEC]"></div>
+      <div className="flex mb-[32px] items-center justify-around lg:hidden">
+        <div  className="w-[121px] h-[1px] flex bg-[#EBEDEC] md:w-[230px]"></div>
+        <p className="text-[#616161] flex text-[17px] md:text-[25px]">Or login with</p>
+        <div  className="w-[121px] h-[1px] flex bg-[#EBEDEC] md:w-[230px]"></div>
       </div>
       
 
@@ -134,7 +134,7 @@ export default function NormalLogin(){
 
         {/* Login with google button */}
         <button className="flex items-center justify-center
-          rounded-[36px] w-[178px] bg-[#6464641F]">
+          rounded-[36px] w-[178px] bg-[#6464641F] mr-[16px]">
           <img src={google_icon} alt="icon not found" className="w-[28px] h-[28px]"/>
           <p className="ml-[8px] text-[#051320] text-[16px]"><b>Google</b></p>
         </button>
@@ -151,7 +151,7 @@ export default function NormalLogin(){
       <a className="mt-[112px] flex justify-center text-[#616161] text-[1.4rem] lg:hidden">Terms of use | Privacy policy</a>
       
 
-      <div className="hidden lg:block lg:w-[100%] lg:flex lg:flex-wrap">
+      <div className="hidden lg:w-[100%] lg:flex lg:flex-wrap">
         <SignInPage />
       </div>
     </form>

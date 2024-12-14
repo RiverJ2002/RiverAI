@@ -38,7 +38,7 @@ export default function ConversationCardMaker({ onSendPrompt }) {
     
 
     return (
-        <section className="w-[100%] flex items-center lg:hidden">
+        <section className="w-[100%] flex items-center">
             <textarea
                 placeholder="Ask me anything..."
                 className="text-[16px] w-[100%] h-[60px] mr-[12px] border border-[#EBEDEC] rounded-[30px] resize-none px-[16px] py-[16px] outline-none"

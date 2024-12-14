@@ -39,6 +39,29 @@ export default function ConversationNav(){
         applyTheme(theme);
     }, [theme]);
 
+
+
+    var deleteAllItems = ()=> {
+        fetch('https://6756066c11ce847c992bcae8.mockapi.io/Conversations')
+          .then(response => response.json())
+          .then(data => {
+            const deletePromises = data.map(item => 
+              fetch(`https://6756066c11ce847c992bcae8.mockapi.io/Conversations/${item.id}`, {
+                method: 'DELETE',
+              })
+            );
+      
+            return Promise.all(deletePromises);
+          })
+          .then(() => {
+            console.log('All items deleted');
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+      
+
     return <nav className=" flex items-center mt-[24px] mb-[60px]">
                 <Menu placement="bottom-start">
                     <MenuHandler>
@@ -55,6 +78,8 @@ export default function ConversationNav(){
                         <MenuItem onClick={()=>applyTheme("dark")} className='h-[80px]'><p className='text-[#051320] text-[20px] font-medium'>
                         Dark mode</p></MenuItem>
                         <hr className="my-3" />
+                        <MenuItem onClick={deleteAllItems} className='h-[80px]'><p className='text-[#051320] text-[20px] font-medium'>
+                        Clear history</p></MenuItem>
                         <MenuItem className='h-[80px]'><p className='text-[#051320] text-[20px] font-medium'>
                         Delete Account</p></MenuItem>
                         <MenuItem className='h-[80px]'><p className='text-[#CB4959] text-[20px] font-medium'>
