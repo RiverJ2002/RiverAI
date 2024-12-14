@@ -6,6 +6,7 @@ import google_icon from './images/google_icon.png'
 import facebook_icon from './images/facebook_icon.png'
 import openai_icon from './images/openai_icon.png'
 import { useState } from "react";
+import SignInPage from "./SignInPage";
 
 
 
@@ -64,18 +65,23 @@ export default function NormalLogin(){
       setEnteredPassword(event.target.value);
     };
     
-    return <form className="flex-col flex justify-center mt-[40px]  px-[32px] box-border">
+    return <form className="flex-col flex justify-center mt-[40px]  px-[32px] box-border 
+    lg:bg-orange-300 lg:flex-row">
 
       {/* The login page header section */}
-      <section className=" mb-[40px]">
+      <section className=" mb-[40px] lg:bg-green-300 lg:mr-[50px]">
         <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
         <h1 className="text-[4rem] mb-[16px]">Login to your <br /> account</h1>
-        <p className="text-[1.6rem]">Don’t have an account? <span className="text-[#01CD98]"><Link to={"/SignInPage"}>Sign Up</Link></span></p>
+        <p className="text-[1.6rem]  lg:hidden">Don’t have an account? <span className="text-[#01CD98]"><Link to={"/SignInPage"}>Sign Up</Link></span></p>
       </section>
 
 
+
+
+
       {/* The section for normal input. (user enters their informaion) */}
-      <section className="bg-white w-[100%] mb-[32px]">
+      <section className="bg-white w-[100%] mb-[32px] lg:bg-teal-400 lg:flex lg: flex-col
+      lg: justify-center">
         
         {/* The email input section */}
         <section className="flex bg-white rounded-[16px] border-[#dbdcdc] border 
@@ -100,24 +106,36 @@ export default function NormalLogin(){
             <div></div> {/* Just a placeholder to push the link to the far right */}  
             <a href="" className="pr-[32px] text-[#01CD98] text-[1.4rem]">Forgot Password?</a>  
         </section>
+
+
+        <Link onClick={LogIn} className=" bg-[#01CD98] rounded-[36px] w-[100%] h-[56px] flex items-center
+       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF] hidden lg:flex" to={"HistoryPage"}>Login</Link>
+
       </section>
 
-
+      {/* The sign in  page header section for desktops*/}
+      <section className=" mb-[40px] lg:bg-green-300 lg:mr-[50px] hidden lg:block lg:ml-[50px]  lg:mr-[50px]">
+          <img src={openai_icon} alt="icon not found" className="w-[64px] h-[64px] mb-[24px]" />
+          <h1 className="text-[4rem] mb-[16px]">Sign in to My <br /> ChatBot</h1>
+          <p className="text-[1.6rem]  lg:hidden">Don’t have an account? <span className="text-[#01CD98]"><Link to={"/SignInPage"}>Sign Up</Link></span></p>
+      </section>
       
       <Link onClick={LogIn} className="bg-[#01CD98] rounded-[36px] w-[100%] h-[56px] flex items-center
-       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF]" to={"HistoryPage"}>Login</Link>
+       justify-center mb-[32px] text-[1.6rem] text-[#FFFFFF] lg: hidden" to={"HistoryPage"}>Login</Link>
 
+
+      <SignInPage />
 
 
       {/* Other ways to login */}
-      <div className="flex mb-[32px] items-center justify-between">
+      <div className="flex mb-[32px] items-center justify-between lg:hidden">
         <div  className="w-[121px] h-[1px] bg-[#EBEDEC]"></div>
         <p className="text-[#616161] text-[1.4rem]">Or login with</p>
         <div  className="w-[121px] h-[1px] bg-[#EBEDEC]"></div>
       </div>
       
 
-      <section className="w-[100%] h-[56px] flex justify-between">
+      <section className="w-[100%] h-[56px] flex justify-between lg:hidden">
 
         {/* Login with google button */}
         <button className="flex items-center justify-center
@@ -135,7 +153,7 @@ export default function NormalLogin(){
 
       </section>
 
-      <a className="mt-[112px] flex justify-center text-[#616161] text-[1.4rem]">Terms of use | Privacy policy</a>
+      <a className="mt-[112px] flex justify-center text-[#616161] text-[1.4rem] lg:hidden">Terms of use | Privacy policy</a>
       
     </form>
 }

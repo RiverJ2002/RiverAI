@@ -9,6 +9,7 @@ import openai_icon from './images/openai_icon.png'
 import regenerate_icon from './images/regenerate_icon.png'
 import { GoogleGenerativeAI } from "@google/generative-ai";  
 import { useLocation } from 'react-router-dom';  
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 
 
@@ -27,7 +28,7 @@ export default function ChatPage() {
     // Get the conversationId from the router state
     const conversationId = location.state?.conversationId;
     
-
+    const [isCopied, setIsCopied] = useState(false);
 
     useEffect(() => {
         if (conversationId) {
@@ -148,27 +149,65 @@ export default function ChatPage() {
         return responseText;
     };
       
+ 
 
-    var RegenerateResponse = (prompt) => {
-        // Find the index of the prompt to be regenerated
+
+    const Edit = async (prompt) => {
+        // Find the index of the prompt in prompts (the original state list where I pour all the prompts as they come)
         const promptIndex = prompts.indexOf(prompt);
     
-        // Remove the current prompt
-        const updatedPrompts = [...prompts];
-        updatedPrompts.splice(promptIndex, 1);
+        // Remove the prompt and associated response from state by resetting all the prompts other than the deleted one.
+        const updatedPrompts = prompts.filter((_, index) => index !== promptIndex);
         setPrompts(updatedPrompts);
     
-        // Clear the response for this prompt
+        // we add the responses to a list 
         const updatedResponses = { ...responses };
-        delete updatedResponses[prompt];
-        setResponses(updatedResponses);
+        delete updatedResponses[prompt]; // The delete operator is amazing. The delted card response is removed from the responses object entirely.
+        setResponses(updatedResponses); // The other responses are added to the responses object.
     
-        // Re-add the prompt to regenerate a new response
-        setTimeout(() => {
-            addPromptSection(prompt);
-        }, 0);
+        // All this was easy!! but I had to remove the editted item from the data as well. 
+        //at first I need to change the variables.
+        const updatedHistory = newConversation.history.filter((entry, index) => {
+            // Exclude both the user prompt and the model response from the newConversation variable which will be poured into the mockApi.
+            return index !== promptIndex * 2 && index !== promptIndex * 2 + 1;
+        });
+    
+
+        const updatedConversation = {
+            ...newConversation,
+            history: updatedHistory,
+        };
+
+        
+        // I simply make a new conversation for the updated version. 
+        setNewConversation(updatedConversation);
+    
+        // Sync changes with the mock api server
+        try {
+            const response = await fetch(
+                `https://6756066c11ce847c992bcae8.mockapi.io/Conversations/${newConversation.id}`,
+                {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedConversation),
+                }
+            );
+    
+            if (!response.ok) {
+                console.error('Failed to update conversation on the server');
+            }
+        } catch (error) {
+            console.error('Error updating conversation:', error);
+        }
+
+
+        
     };
- 
+    
+
+    var Regenerate = async (prompt) => {
+        alert("I tried implementing this but it made me wanna die!")
+    };
 
 
     // The cards are made in this variable, the prompts are extracted using the ConversationCardMaker component
@@ -187,10 +226,13 @@ export default function ChatPage() {
                     <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Edit</p>
                 </div>
 
-                <div className="flex">
-                    <img src={copy_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
-                    <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Copy</p>
-                </div>
+                <CopyToClipboard text={prompt}>
+                    <div className="flex cursor-pointer">
+                        <img src={copy_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
+                        <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Copy</p>
+                    </div>
+                </CopyToClipboard>
+
             </div>
 
             <section className="mt-[48px]">
@@ -204,19 +246,23 @@ export default function ChatPage() {
 
 
 
-            <div className="flex mt-[16px]">
-                <div className="flex mr-[16px]">
+            <div  className="flex mt-[16px]">
+                <div onClick={() => Edit(prompt)}  className="flex mr-[16px] cursor-pointer">
                     <img src={edit_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
                     <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Edit</p>
                 </div>
+
                 
-                <div onClick={navigator.clipboard.writeText(responses[prompt])} className="flex mr-[8px] cursor-pointer">
-                    <img src={copy_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
-                    <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Copy</p>
-                </div>
+                <CopyToClipboard text={responses[prompt]}>
+                    <div className="flex mr-[8px] cursor-pointer">
+                        <img src={copy_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
+                        <p className="text-[#616161] text-[14px] mr-[8px] leading-[18px] font-medium">Copy</p>
+                    </div>
+                </CopyToClipboard>
 
 
-                <div onClick={() => RegenerateResponse(prompt)} className="flex cursor-pointer">
+
+                <div onClick={() => Regenerate(prompt)} className="flex cursor-pointer">
                     <img src={regenerate_icon} alt="icon not found" className="w-[16px]  mr-[8px] h-[16px]" />
                     <p className="text-[#616161] text-[14px] leading-[18px] font-medium">Regenerate</p>
                 </div>
