@@ -56,7 +56,7 @@ export default function SignInPage(){
     
 
     
-    return <form className="flex-col w-[100%] flex justify-center mt-[40px]  px-[32px]  box-border lg:flex-row
+    return <div className="flex-col w-[100%] flex justify-center mt-[40px]  px-[32px]  box-border lg:flex-row
      lg:px-0 lg:w-[100%] ">
 
       {/* The signin page header section */}
@@ -125,7 +125,7 @@ export default function SignInPage(){
 
       <a className="mt-[80px] flex justify-center text-[#616161] text-[1.4rem] lg:hidden">Terms of use | Privacy policy</a>
       
-    </form>
+    </div>
 }
 
 

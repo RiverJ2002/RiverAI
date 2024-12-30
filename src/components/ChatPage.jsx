@@ -127,7 +127,7 @@ export default function ChatPage() {
 
       
     const UseGemini = async (prompt, history) => {
-        const genAI = new GoogleGenerativeAI('AIzaSyDcgqJRtyuORcu22kktac6o6FlWiCR2AaE');
+        const genAI = new GoogleGenerativeAI('AIzaSyA9XkIgKEisgoScqgnwulBga_HzWhz_Xzw');
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const chat = model.startChat({ history });
         let result = await chat.sendMessageStream(prompt);
